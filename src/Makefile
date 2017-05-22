@@ -344,6 +344,11 @@ else
   ifeq (GNU/kFreeBSD,$(TARGET_SYS))
     TARGET_XLIBS+= -ldl
   endif
+  ifeq (3DS,$(TARGET_SYS))
+    TARGET_XLIBS+= -L $(DEVKITPRO)/libctru/lib -lctru -lm
+    TARGET_XLDFLAGS+= -march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft -specs=3dsx.specs 
+    TARGET_XCFLAGS+= -I3ds -mword-relocations -fomit-frame-pointer -ffunction-sections -march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft -DARM11 -D_3DS
+  endif
 endif
 endif
 endif
@@ -547,6 +552,9 @@ ifeq (SunOS,$(TARGET_SYS))
   BUILDMODE= static
 endif
 ifeq (PS3,$(TARGET_SYS))
+  BUILDMODE= static
+endif
+ifeq (3DS,$(TARGET_SYS))
   BUILDMODE= static
 endif
 
