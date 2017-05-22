@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-make CROSS="arm-none-eabi-" HOST_CC="gcc -m32" TARGET_SYS=3DS
+
+make install CROSS="arm-none-eabi-" HOST_CC="gcc -m32" TARGET_SYS=3DS

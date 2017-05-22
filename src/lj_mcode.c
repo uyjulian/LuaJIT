@@ -19,6 +19,10 @@
 #include "lj_vm.h"
 #endif
 
+#if _3DS
+#include "3ds_utils.h"
+#endif
+
 /* -- OS-specific functions ----------------------------------------------- */
 
 #if LJ_HASJIT || LJ_HASFFI
@@ -44,6 +48,8 @@ void lj_mcode_sync(void *start, void *end)
   sys_icache_invalidate(start, (char *)end-(char *)start);
 #elif LJ_TARGET_PPC
   lj_vm_cachesync(start, end);
+#elif _3DS
+  ctr_flush_invalidate_cache();
 #elif defined(__GNUC__)
   __clear_cache(start, end);
 #else
